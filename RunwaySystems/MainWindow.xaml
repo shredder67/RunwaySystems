@@ -1,0 +1,56 @@
+﻿<Window x:Class="RunwaySystems.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RunwaySystems"
+        mc:Ignorable="d"
+        Title="Runway Systems" Height="640" Width="820" ResizeMode="CanMinimize">
+    
+    <!--TODO: Styles for Font (Tytles, General, Contorls), Button template, Styled checkboxes to ND and sliader
+        Add data binding for checkbox groups, slider under first panel, connect it to scale background image)-->
+    
+    <Window.Resources>
+        
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="ROPS"/>
+            <MenuItem Header="RAAS"/>
+            <MenuItem Header="Теория"/>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="36*" />
+                <ColumnDefinition Width="70*"/>
+            </Grid.ColumnDefinitions>
+
+            <UniformGrid Rows="2" Grid.Column="0">
+                <StackPanel Orientation="Vertical">
+                    <Label HorizontalAlignment="Center">Конфигурация посадки</Label>
+                    <RadioButton x:Name="PerfectLanding" Content="Идеальная посадка" GroupName="ROW"></RadioButton>
+                    <RadioButton x:Name="RWYTooShort" Content="IF WET RWY TOO SHORT" GroupName="ROW"></RadioButton>
+                    <RadioButton x:Name="RWYTooShortOverrun" Content="RWY TOO SHORT and OVERRUN CONDITION" GroupName="ROW"></RadioButton>
+                    <RadioButton x:Name="MAX" Content="MAX BREAKING, MAX REVERSE" GroupName="ROP"></RadioButton>
+                    <RadioButton x:Name="NotMAX" Content="MAX REVERSE THRUST HASN'T BEEN SELECTED" GroupName="ROP"></RadioButton>
+                </StackPanel>
+                <Button Margin="10 0 10 0" VerticalAlignment="Top" Content="Запуск" MinHeight="10"></Button>
+            </UniformGrid>
+            
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Canvas x:Name="NDCanvas" Margin="5" Height="250" Width="250" Background="Black"></Canvas>
+                    <Canvas x:Name="DFDCanvas" Margin="5" Height="250" Width="250" Background="Blue"></Canvas>
+                </StackPanel>
+                <Canvas x:Name="LandingCanvas" Margin="0 60 0 0" Height="200" Width="500" Background="GreenYellow"></Canvas>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
