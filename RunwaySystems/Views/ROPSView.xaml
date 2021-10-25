@@ -38,9 +38,9 @@
 
         <Grid Grid.Column="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -57,7 +57,7 @@
                             <ImageBrush ImageSource="../Resources/ND_Background.png"/>
                         </Canvas.Background>
                     </Canvas>
-                    <Slider Orientation="Horizontal" Margin="0 10" Maximum="2" SmallChange="0.2"/>
+                    <Slider x:Name="NDBackground_slider" Orientation="Horizontal" Margin="0 10" Maximum="4" SmallChange="0.2" ValueChanged="NDBackground_slider_ValueChanged" Minimum="1" Value="1"/>
                     <UniformGrid Columns="3">
                         <Button Content="ROSE"></Button>
                         <Button Content="ARC" Margin="5 0"></Button>
