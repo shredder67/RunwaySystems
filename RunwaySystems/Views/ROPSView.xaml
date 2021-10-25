@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="RunwaySystems.Views.ROPSView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunwaySystems.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024"
+             d:Background="White">
+
+    <UserControl.Resources>
+        <!-- DrawPanel (StackPanel + BackgroundImage + Border) template -->
+        
+        <!-- Buttom with icon template -->
+        
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"  Padding="10">
+            <StackPanel Orientation="Vertical">
+                <Label HorizontalAlignment="Center">Конфигурация посадки</Label>
+                <RadioButton x:Name="PerfectLanding" Content="Идеальная посадка" GroupName="ROW" Checked="Mode_Checked" Unchecked="Mode_UnChecked" IsChecked="True"></RadioButton>
+                <RadioButton x:Name="RWYTooShort" Content="IF WET RWY TOO SHORT" GroupName="ROW" Unchecked="Mode_UnChecked" Checked="Mode_Checked"></RadioButton>
+                <RadioButton x:Name="RWYTooShortOverrun" Content="RWY TOO SHORT and OVERRUN CONDITION" GroupName="ROW" Checked="Mode_Checked" Unchecked="Mode_UnChecked"></RadioButton>
+                <RadioButton x:Name="MAX" Content="MAX BREAKING, MAX REVERSE" GroupName="ROP" Checked="Mode_Checked" Unchecked="Mode_UnChecked" IsEnabled="False"></RadioButton>
+                <RadioButton x:Name="NotMAX" Content="MAX REVERSE THRUST HASN'T BEEN SELECTED" GroupName="ROP" Checked="Mode_Checked" Unchecked="Mode_UnChecked" IsEnabled="False"></RadioButton>
+                <Button Margin="0 20 0 0" VerticalAlignment="Top" Content="Запуск" MinHeight="10"></Button>
+            </StackPanel>
+        </Border>
+
+        <GridSplitter Grid.Column="1" Width="5"/>
+
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="NDBorder" Grid.Row="0" Grid.Column="0" BorderThickness="3" Margin="10 5">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                    <Canvas x:Name="NDCanvas" 
+                            Width="{Binding ElementName=NDBorder, Path=ActualWidth}"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                        <Canvas.Background>
+                            <ImageBrush ImageSource="../Resources/ND_Background.png"/>
+                        </Canvas.Background>
+                    </Canvas>
+                    <Slider Orientation="Horizontal" Margin="0 10" Maximum="2" SmallChange="0.2"/>
+                    <UniformGrid Columns="3">
+                        <Button Content="ROSE"></Button>
+                        <Button Content="ARC" Margin="5 0"></Button>
+                        <Button Content="PLAN"></Button>
+                    </UniformGrid>
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="PFDBorder" Grid.Row="0" Grid.Column="2" BorderThickness="3" VerticalAlignment="Top"  Margin="10 5">
+                <Canvas x:Name="PFDCanvas" 
+                        Width="{Binding ElementName=PFDBorder, Path=ActualWidth}"
+                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="../Resources/PFD_Background.png"/>
+                    </Canvas.Background>
+                </Canvas>
+            </Border>
+
+            <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Width="5" HorizontalAlignment="Stretch"/>
+            
+            <Border x:Name="DemoBorder" Grid.Row="2" Grid.ColumnSpan="3" Margin="30 10" >
+                <Canvas x:Name="DemoCanvas" Background="Green"
+                        Width="{Binding ElementName=DemoBorder, Path=ActualWidth}"
+                        Height="{Binding ElementName=DemoBorder, Path=ActualHeight}"></Canvas>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

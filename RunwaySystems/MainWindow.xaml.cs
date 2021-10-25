@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using RunwaySystems.ViewModels;
 
 namespace RunwaySystems
 {
@@ -8,6 +9,7 @@ namespace RunwaySystems
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

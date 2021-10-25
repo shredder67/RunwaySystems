@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:RunwaySystems"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Font style -->
+        <Style TargetType="ContentControl">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
     </Application.Resources>
 </Application>

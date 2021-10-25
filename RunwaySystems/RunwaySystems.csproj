@@ -6,4 +6,24 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\ND_Background.png" />
+    <None Remove="Resources\PFD_Background.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ND_Background.png" />
+    <Resource Include="Resources\PFD_Background.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ViewModels\MainViewModel.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+  </ItemGroup>
+
 </Project>
