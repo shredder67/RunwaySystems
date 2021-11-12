@@ -30,9 +30,9 @@ namespace RunwaySystems.Views
             rowRadioButtons.Add(MAX);
             rowRadioButtons.Add(NotMAX);
 
-            ndUIs[UI_MODE.ROSE] = new BitmapImage(new Uri("pack://application:,,,/Resources/ROSE_UI.png"));
-            ndUIs[UI_MODE.ARC] = new BitmapImage(new Uri("pack://application:,,,/Resources/ARC_UI.png"));
-            ndUIs[UI_MODE.PLAN] = new BitmapImage(new Uri("pack://application:,,,/Resources/PLAN_UI.png"));
+            ndUIs[UI_MODE.ROSE] = new BitmapImage(new Uri("pack://application:,,,/Resources/ND_Display/ROSE_UI.png"));
+            ndUIs[UI_MODE.ARC] = new BitmapImage(new Uri("pack://application:,,,/Resources/ND_Display/ARC_UI.png"));
+            ndUIs[UI_MODE.PLAN] = new BitmapImage(new Uri("pack://application:,,,/Resources/ND_Display/PLAN_UI.png"));
         }
 
         private void UpdateNDUI()

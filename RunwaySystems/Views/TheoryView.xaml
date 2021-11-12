@@ -4,14 +4,304 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RunwaySystems.Views"
-             xmlns:mdxam="clr-namespace:MdXaml;assembly=MdXaml"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             d:Background="LightGray">
+             d:DesignHeight="2800" d:DesignWidth="800"
+             Background="White">
+    
+    <ScrollViewer Background="White" Margin="40 0 0 0">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+            <RichTextBox>
+                <FlowDocument FontSize="14">
+                    <Paragraph FontSize="18" FontWeight="DemiBold">
+                        Runway Overrun Prevetion System (ROPS)
+                    </Paragraph>
+                    <Paragraph>
+                        <Span>
+                            <Run FontWeight="Bold">ROPS - Система предотвращения выкатывания за пределы ВПП</Run>
+                            <Run>служит для подачи сигнала экипажу ВС в случае потенциального выкатывания для влажной и сухой ВПП. ROPS включает в себя две функции:</Run>
+                        </Span>
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Runway Overrun Warning</Run>
+                                - Автоматически включается на высоте 500 футов AGL *(above ground level - над уровнем земли)* и работает до начала торможения.
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">ROP - Runway overrun protection</Run>
+                                - Работает с начала момента торможения до полной остановки ВС.
+                            </Paragraph>
+                        </ListItem>
+                    </List>
+                    
+                    <BlockUIContainer>
+                        <StackPanel>
+                            <Image></Image>
+                            <TextBlock>Рис.1 Этапы работы ROW и ROP</TextBlock>
+                        </StackPanel>
+                    </BlockUIContainer>
+                    
+                    <Paragraph>
+                        Рассчитанные точки остановки ВС для сухой и влажной ВПП отображаются линиями пурпурного цвета на ND
+                        <Run FontStyle="Italic">(Navigation display  - навигационный дисплей)</Run>
+                        пилотов
+                    </Paragraph>
+                    
+                    <BlockUIContainer>
+                        <StackPanel>
+                            <Image></Image>
+                            <TextBlock>Рис.2 Скриншот дисплеев в программе</TextBlock>
+                        </StackPanel>
+                    </BlockUIContainer>
+                    
+                    <Paragraph>
+                        Функции ROW/ROP рассчитывают дистанции пробега влажной и сухой ВПП при данных условиях. Далее система сравнивает полученные данные с LDA
+                        <Run FontStyle="Italic">(Landing distance available - Имеющаяся дистанция необходимая ВС для посадки)</Run>
+                        ВПП, на которую планируется произвести посадку. Для определения нужной ВПП, функции ROW/ROP используют данные 
+                        TAWS *(Terrain awareness and warning system - система информирования о местности и предупреждения о ней)* и актуальные данные о 
+                        положении и траектории полета ВС.  
+                        Определение нужной ВПП происходит на высоте 2000 футов и в дальнейшем правильность выбора проверяется несколько раз в секунду.
+                        <LineBreak/>
+                        <LineBreak/>
+                        Расчеты производятся ROW/ROP в настоящем времени и в качестве параметров принимают:
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>Посадочные вес и центровку</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Конфигурации посадки</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>LDA</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Параметры ветра</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Параметры влажной и сухой ВПП</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Наличие/отсутствие отказов, влияющих на производство посадки</Paragraph>
+                        </ListItem>
+                    </List>
+                    <Paragraph>
+                        В случае обнаружения риска выкатывания за пределы ВПП ROW/ROP подают следующие сигналы:
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>Текстовое сообщение на PFD
+                                <Run FontStyle="Italic">(Primary flight display - Основной дисплей полета)</Run> обоих пилотов</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Звуковое сообщение через динамики</Paragraph>
+                        </ListItem>
+                    </List>
+                    <Paragraph>
+                        <Run FontSize="16" FontWeight="DemiBold">Функции ROW</Run>
+                        <LineBreak/>
+                        ROP обеспечивает осведомленность летного экипажа о замедлении и способности ВС остановится до окончании ВПП.
+                        <Run FontSize="16" FontWeight="DemiBold">Активация ROW</Run>
+                        <LineBreak/>
+                        Если на высоте меньшей 400 футов в ходе расчетов система решает, что дистанция пробега 
+                        на влажной ВПП больше чем LDA:
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                Сообщение
+                                <Run FontWeight="Bold">"IF WET: RWY TOO SHORT"</Run>
+                                появляется на PFD. Данное сообщение мигает 9 раз и далее остается на 
+                                дисплее; сообщение не сопровождается звуковой сигнализацией.
+                            </Paragraph>
+                        </ListItem>
+                    </List>
 
-    <DockPanel>
-        <mdxam:MarkdownScrollViewer
-            xml:space="preserve" Source="{Binding TheoryMarkDown}"/>
-    </DockPanel>
+                    <BlockUIContainer>
+                        <StackPanel>
+                            <Image></Image>
+                            <TextBlock>Рис.3 Скриншот дисплеев в программе</TextBlock>
+                        </StackPanel>
+                    </BlockUIContainer>
+
+                    <Paragraph>
+                        Если на высоте меньшей 200 футов в ходе расчетов система решает, 
+                        что дистанция пробега на сухой ВПП больше чем LDA:
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                Сообщение
+                                <Run FontWeight="Bold">"RWY TOO SHORT"</Run>
+                                появляется на PFD. Данное сообщение также мигает 9 раз и остается на дисплее. 
+                                Вдобавок, данное сообщение сопровождается звуковой сигнализацией:
+                                <Run FontWeight="Bold">"RUNWAY TOO SHORT"</Run>
+                            </Paragraph>
+                        </ListItem>
+                    </List>
+
+                    <BlockUIContainer>
+                        <StackPanel>
+                            <Image></Image>
+                            <TextBlock>Рис.4 Скриншот дисплеев в программе</TextBlock>
+                        </StackPanel>
+                    </BlockUIContainer>
+
+                    <Paragraph>Когда дистанция посадки меньше LDA, уведомления прекращаются.</Paragraph>
+
+                    <Paragraph>
+                        <Run FontSize="16" FontWeight="DemiBold">Функции ROP</Run>
+                        <LineBreak/>
+                        <LineBreak/>
+                        ROP обеспечивает осведомленность летного экипажа о замедлении и 
+                        способности ВС остановится до окончании ВПП.
+                        <Run FontSize="16" FontWeight="DemiBold">Активация ROP</Run>
+                        На земле, функции ROP рассчитывают дистанцию торможения для данного ВС и условий ВПП. 
+                        Если режима работы системы торможения не хватает для остановки на LDA, то срабатывают визуальные и звуковые сигнализации.
+                        Как только обнаруживается ситуация выкатывания, на PFD появляются сообщения
+                        <Run FontWeight="Bold">MAX BRAKING</Run>
+                        и
+                        <Run FontWeight="Bold">MAX REVERSE</Run>
+                        , которые мигают 9 раз и остаются на дисплее
+                    </Paragraph>
+
+                    <BlockUIContainer>
+                        <StackPanel>
+                            <Image></Image>
+                            <TextBlock>Рис.5 Скриншот дисплеев в программе</TextBlock>
+                        </StackPanel>
+                    </BlockUIContainer>
+
+                    <Paragraph>
+                        Одновременно с текстовыми сообщениями, срабатывают и звуковые сообщения:
+                        <Run FontWeight="Bold">"BRAKE, MAX BRAKE, MAX BRAKE"</Run> до тех пор, пока система не убедится 
+                        в установлении максимального режима торможения. Когда экипаж применяет максимальное торможение, 
+                        срабатывает другая звуковая сигнализация:
+                        <Run FontWeight="Bold">"SET MAX REVERSE"</Run>  и звучит до установления максимального реверса.
+                        <LineBreak/>
+                        <LineBreak/>
+                        Замечание:Звуковое сообщение
+                        <Run FontWeight="Bold">"BRAKE, MAX BRAKE, MAX BRAKE</Run>
+                        приоритетнее сообщения
+                        <Run FontWeight="Bold">"SET MAX REVERSE"</Run>
+                        <LineBreak/>
+                        <LineBreak/>
+                        В случае, если риск выкатывания за пределы ВПП остается (при условиях применения максимального торможения и реверса), то звучит сообщение:
+                        <Run FontWeight="Bold">"KEEP MAX REVERSE"</Run>.
+                    </Paragraph>
+
+                    <Paragraph>
+                        <LineBreak/>
+                        <Run FontSize="18" FontWeight="DemiBold">Runway Awareness and Advisory System (RAAS)</Run>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run FontWeight="Bold">RAAS *(Runway awareness and advisory system - Информационно-консультативная система ВПП)</Run>
+                        - это электронная система обнаружения, которая уведомляет летные экипажи воздушных судов на 
+                        основании их местоположения относительно выделенной им ВПП. RAAS разработан для улучшения осведомленности 
+                        экипажа о ситуации на аэродроме, а также для исключения риска несанкционированного выезда на ВПП, несоответствующих выходов 
+                        из ВПП, выбора неправильной ВПП.
+                        <LineBreak/>
+                        <LineBreak/>
+                        RAAS использует данные об аэропорте взятые из EGPWS *(Enhanced ground proximity warning systems - усовершенствованная 
+                        система предупреждения о близости земли)*, при этом используя самолетные датчики и GPS, для мониторинга положений 
+                        ВС в районе аэродрома. Система уведомляет экипаж с помощью текстовых и звуковых сообщений
+                        <LineBreak/>
+                        <LineBreak/>
+                        Информационные сообщения / предупреждения генерируются на основе текущего местоположения воздушного судна по сравнению с местоположением 
+                        ВПП аэропорта, которые хранятся в базе данных EGPWS.
+                        <LineBreak/>
+                        <LineBreak/>
+                        Звуковые сообщения подразделяются на две категории: для штатных и нештатных ситуаций
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Run FontSize="16" FontWeight="DemiBold">Сообщения при штатных ситуациях</Run>
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Approaching runway (Приближение к ВПП)</Run> - информационные сообщения позволяют 
+                                экипажу узнать, на какую ВПП выстраивается воздушное судно при заходе на посадку.
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Approaching runway (Приближение к ВПП)</Run> - информационные сообщения на земле позволяют летному экипажу узнавать приблизительную границу ВПП, 
+                                к которой приближается воздушное судно во время руления.
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">On runway (На ВПП)</Run>  - информационное сообщение дает экипажу информацию о том, исполнительный старт какой ВПП занял самолет.
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Distance remaining (Остаток дистанции)</Run> - информационные сообщения повышают осведомленность экипажа о 
+                                положении воздушного судна на линии пути относительно конца ВПП
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Runway end (Конец ВПП)</Run> - информационное сообщение предназначено для повышения осведомленности летного 
+                                экипажа о положении самолета относительно конца ВПП в условиях плохой видимости
+                            </Paragraph>
+                        </ListItem>
+                    </List>
+
+                     <Paragraph>
+                        <Run FontSize="16" FontWeight="DemiBold">Сообщения/предупреждения при нештатных ситуациях:</Run>
+                    </Paragraph>
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Approaching Short Runway (Заход на короткую ВПП)</Run> - информационное 
+                                сообщение дает экипажу информацию о том, по какой ВПП выстроено воздушное судно, и что доступная 
+                                длина ВПП может быть предельной для нормальных посадочных операций.
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Insufficient Runway Length (Недостаточная длина ВПП)</Run>
+                                - информационные сообщения на земле предоставляют экипажу информацию о том, 
+                                исполнительный старт какой ВПП заняло воздушное судно, и что длина ВПП, доступная для взлета, 
+                                меньше установленной минимальной взлетной длины ВПП
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Extended Holding on Runway (увеличенное время ожидания на ВПП)</Run>
+                                - информационное сообщение обеспечивает осведомленность экипажа о продолжительном периоде ожидания на ВПП
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Taxiway Take-Off (Взлет на РД)</Run> 
+                                - информационное сообщение повышает осведомленность экипажа о чрезмерной 
+                                скорости руления или непреднамеренном взлете на рулежной дорожке
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Distance Remaining (Остаточная дистанция)</Run>
+                                информационное сообщение позволяют летному экипажу узнавать о положении 
+                                во время прерванного взлета (RTO - Rejected take-off)
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <Run FontWeight="Bold">Taxiway Landing (Посадка на РД)</Run>
+                                - оповещение дает экипажу информацию о том, что самолет не выровнялся 
+                                с ВПП на малых высотах.
+                            </Paragraph>
+                        </ListItem>
+                    </List>
+
+                </FlowDocument>
+            </RichTextBox>
+        </StackPanel>
+    </ScrollViewer>
 
 </UserControl>

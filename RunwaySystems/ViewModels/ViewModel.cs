@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace RunwaySystems.ViewModels
 {
     //Base ViewModel class
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -23,6 +23,17 @@ namespace RunwaySystems.ViewModels
             OnPropertyChanged(PropertyName);
             return true;
         }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        //private bool canDispose = true;
+        //protected bool Dispose()
+        //{
+        //    return true;
+        //}
     }
    
 }

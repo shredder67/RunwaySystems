@@ -12,7 +12,7 @@ namespace RunwaySystems.Views
         public TheoryView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = new TheoryViewModel();
         }
     }
 }
