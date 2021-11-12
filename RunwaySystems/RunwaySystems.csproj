@@ -2,22 +2,30 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ARC_UI.png" />
     <None Remove="Resources\ND_Background.png" />
     <None Remove="Resources\PFD_Background.png" />
+    <None Remove="Resources\Plane.png" />
+    <None Remove="Resources\PLAN_UI.png" />
+    <None Remove="Resources\ROSE_UI.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="MdXaml" Version="1.12.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\ARC_UI.png" />
     <Resource Include="Resources\ND_Background.png" />
     <Resource Include="Resources\PFD_Background.png" />
+    <Resource Include="Resources\Plane.png" />
+    <Resource Include="Resources\PLAN_UI.png" />
+    <Resource Include="Resources\ROSE_UI.png" />
   </ItemGroup>
 
   <ItemGroup>

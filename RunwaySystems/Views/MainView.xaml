@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:RunwaySystems.Views"
         xmlns:viewmodels="clr-namespace:RunwaySystems.ViewModels"
         mc:Ignorable="d"
-        Title="Runway Systems" Height="768" Width="1024" ResizeMode="CanResize">
+        Title="Runway Systems" Height="768" Width="1100" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <!-- Views to ViewModels bindings -->
@@ -27,12 +27,11 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
-            <MenuItem Header="ROPS" Command="{Binding UpdateViewCommand}" CommandParameter="ROPS"/>
-            <MenuItem Header="RAAS" Command="{Binding UpdateViewCommand}" CommandParameter="Theory"/>
-            <MenuItem Header="Теория"/>
+            <MenuItem Header="ROPS" Command="{Binding SwitchSubViewCommand}" CommandParameter="ROPSView"/>
+            <MenuItem Header="RAAS" Command="{Binding SwitchSubViewCommand}" CommandParameter="RAASView"/>
+            <MenuItem Header="Теория" Command="{Binding SwitchSubViewCommand}" CommandParameter="TheoryView"/>
         </Menu>
-        
+
         <ContentControl Grid.Row ="1" Content="{Binding SelectedViewModel}"/>
-        
     </Grid>
 </Window>
