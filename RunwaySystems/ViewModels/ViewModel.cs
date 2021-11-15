@@ -26,14 +26,16 @@ namespace RunwaySystems.ViewModels
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
         }
 
-        //private bool canDispose = true;
-        //protected bool Dispose()
-        //{
-        //    return true;
-        //}
+        private bool _Disposed = false;
+        protected virtual void Dispose(bool Disposing)
+        {
+            if (_Disposed || !Disposing) return;
+            _Disposed = true;
+            //Clean resources in child class
+        }
     }
-   
+
 }
