@@ -9,11 +9,15 @@ using System.Windows.Media.Imaging;
 
 namespace RunwaySystems.ViewModels
 {
-    public enum ExecutionMode
+    public enum ROWExecutionMode
     {
         PerfectLanding,
         IfWetRWYTooShort,
-        RWYTooShort,
+        RWYTooShort
+    }
+
+    public enum ROPExecutionMode
+    {
         MaxBreakingMaxReverse,
         KeepMaxReverse
     }
@@ -23,11 +27,26 @@ namespace RunwaySystems.ViewModels
         #region Fields
 
         // Режим проигрывания анимации
-        private ExecutionMode _selectedExecutionMode;
-        public ExecutionMode SelectedExectionMode
+
+        private bool _EnableROPModes = false;
+        public bool EnableROPModes
         {
-            get => _selectedExecutionMode;
-            set => Set(ref _selectedExecutionMode, value);
+            get => _EnableROPModes;
+            set => Set(ref _EnableROPModes, value);
+        }
+
+        private ROWExecutionMode _SelectedROWExecutionMode;
+        public ROWExecutionMode SelectedROWExectionMode
+        {
+            get => _SelectedROWExecutionMode;
+            set => Set(ref _SelectedROWExecutionMode, value);
+        }
+
+        private ROPExecutionMode? _SelectedROPExecutionMode;
+        public ROPExecutionMode? SelectedROPExectionMode
+        {
+            get => _SelectedROPExecutionMode;
+            set => Set(ref _SelectedROPExecutionMode, value);
         }
 
 
@@ -78,16 +97,33 @@ namespace RunwaySystems.ViewModels
         }
         #endregion
 
-        #region Switch Execution Mode
+        #region Switch ROW Execution Mode
         // TODO: Finish Execution Mode Selection
-        public ICommand SwitchExecutionModeCommand { get; }
-        private bool CanSwitchExecutionModeCommandExecute(object p)
+        public ICommand SwitchROWExecutionModeCommand { get; }
+        private bool CanSwitchROWExecutionModeCommandExecute(object p) => true;
+        private void OnSwitchROWExecutionModeCommandExecuted(object p)
         {
-            return true;
+            var mode = (ROWExecutionMode) Enum.Parse(typeof(ROWExecutionMode), p.ToString());
+            if (mode != ROWExecutionMode.PerfectLanding)
+                EnableROPModes = true;
+            else
+            {
+                EnableROPModes = false;
+                SelectedROPExectionMode = null;
+            }
+            SelectedROWExectionMode = mode;
         }
-        private void OnSwitchExecutionModeCommandExecuted(object p)
-        {
 
+        #endregion
+
+        #region Switch ROP Execution Mode
+        // TODO: Finish Execution Mode Selection
+        public ICommand SwitchROPExecutionModeCommand { get; }
+        private bool CanSwitchROPExecutionModeCommandExecute(object p) => EnableROPModes;
+        private void OnSwitchROPExecutionModeCommandExecuted(object p)
+        {
+            var mode = (ROPExecutionMode)Enum.Parse(typeof(ROPExecutionMode), p.ToString());
+            SelectedROPExectionMode = mode;
         }
 
         #endregion
@@ -98,7 +134,7 @@ namespace RunwaySystems.ViewModels
         private bool CanExecuteDemoCommandExecute(object p) => true;
         private void OnExecuteDemoCommandExecuted(object p)
         {
-            AnimationViewModel.ExecutionMode = SelectedExectionMode;
+            AnimationViewModel.ROWExecutionMode = SelectedROWExectionMode;
             AnimationViewModel.Run();
         }
 
@@ -112,7 +148,9 @@ namespace RunwaySystems.ViewModels
             displaySources[ND_Overlay.ARC] = new Uri("pack://application:,,,/Resources/ND_Display/ARC_UI.png");
             displaySources[ND_Overlay.PLAN] = new Uri("pack://application:,,,/Resources/ND_Display/PLAN_UI.png");
             _CurrentND_Display = displaySources[ND_Overlay.ROSE];
-            _AnimationViewModel = new DemoAnimationViewModel(SelectedExectionMode);
+            _AnimationViewModel = new DemoAnimationViewModel(
+                SelectedROWExectionMode, 
+                SelectedROPExectionMode);
             // TODO: Figure out a way to disable a Play button while playing animation
 
             SwitchNDDisplayCommand = new RelayCommand(
@@ -120,9 +158,14 @@ namespace RunwaySystems.ViewModels
                 CanSwitchNDDisplayCommandExecute
             );
 
-            SwitchExecutionModeCommand = new RelayCommand(
-                 OnSwitchExecutionModeCommandExecuted,
-                 CanSwitchExecutionModeCommandExecute
+            SwitchROWExecutionModeCommand = new RelayCommand(
+                 OnSwitchROWExecutionModeCommandExecuted,
+                 CanSwitchROWExecutionModeCommandExecute
+            );
+
+            SwitchROPExecutionModeCommand = new RelayCommand(
+                 OnSwitchROPExecutionModeCommandExecuted,
+                 CanSwitchROPExecutionModeCommandExecute
             );
 
             ExecuteDemoCommand = new RelayCommand(

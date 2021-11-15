@@ -18,17 +18,27 @@ namespace RunwaySystems.ViewModels
             set => Set(ref _Timer, value);
         }
 
-        public DemoAnimationViewModel(ExecutionMode ExecutionMode)
+        public DemoAnimationViewModel(ROWExecutionMode rOWExecutionMode, ROPExecutionMode? rOPExecutionMode = null)
         {
-            this.ExecutionMode = ExecutionMode;
+            this.ROWExecutionMode = rOWExecutionMode;
+            this.ROPExecutionMode = rOPExecutionMode;
         }
 
-        private ExecutionMode _ExecutionMode;
-        public ExecutionMode ExecutionMode
+        private ROWExecutionMode _ROWExecutionMode;
+        public ROWExecutionMode ROWExecutionMode
         {
-            get => _ExecutionMode;
-            set => Set(ref _ExecutionMode, value); 
+            get => _ROWExecutionMode;
+            set => Set(ref _ROWExecutionMode, value); 
         }
+
+        private ROPExecutionMode? _ROPExecutionMode;
+        public ROPExecutionMode? ROPExecutionMode
+        {
+            get => _ROPExecutionMode;
+            set => Set(ref _ROPExecutionMode, value);
+        }
+
+        public int AnimationSpeed { get; private set; }
 
         public void Run()
         {
@@ -40,6 +50,11 @@ namespace RunwaySystems.ViewModels
         {
             StopTimer();
             Timer = new Timer(x => Timer_Tick(), null, 0, 100 / AnimationSpeed);
+        }
+
+        private void Timer_Tick()
+        {
+            throw new NotImplementedException();
         }
 
         private void StopTimer()

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespae:RunwaySystems.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1060"
              d:Background="White">
@@ -17,27 +16,32 @@
             <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold">
                 Конфигурация посадки
                 </Label>
-                <RadioButton DockPanel.Dock="Top" x:Name="PerfectLanding" GroupName="ROW" IsChecked="True" Command="{Binding }">
+                <RadioButton DockPanel.Dock="Top" x:Name="PerfectLanding" GroupName="ROW" IsChecked="True" 
+                             Command="{Binding SwitchROWExecutionModeCommand}" CommandParameter="PerfectLanding">
                     <TextBlock TextWrapping="Wrap">
                         Риск выкатывания за пределы ВПП отсутствует
                     </TextBlock>
                 </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="IfWetRWYTooShort" GroupName="ROW" Command="{Binding }">
+                <RadioButton DockPanel.Dock="Top" x:Name="IfWetRWYTooShort" GroupName="ROW"
+                             Command="{Binding SwitchROWExecutionModeCommand}" CommandParameter="IfWetRWYTooShort">
                     <TextBlock TextWrapping="Wrap">
                         Риск выкатывания с влажной полосы(IF WET RWY TOO SHORT)
                     </TextBlock>
                 </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="RWYTooShort" GroupName="ROW" Command="{Binding }">
+                <RadioButton DockPanel.Dock="Top" x:Name="RWYTooShort" GroupName="ROW"
+                             Command="{Binding SwitchROWExecutionModeCommand}" CommandParameter="RWYTooShort">
                     <TextBlock TextWrapping="Wrap">
                         Риск выкатывания с сухой полосы (RWY TOO SHORT)
                     </TextBlock>
                 </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="MaxBreakingMaxReverse" GroupName="ROP" IsEnabled="False" Command="{Binding }">
+                <RadioButton DockPanel.Dock="Top" x:Name="MaxBreakingMaxReverse" GroupName="ROP"
+                             Command="{Binding SwitchROPExecutionModeCommand}" CommandParameter="MaxBreakingMaxReverse">
                     <TextBlock TextWrapping="Wrap">
                         Риск выкатывания за пределы ВПП с момента приземления ( MAX BRAKING, MAX REVERSE)
                     </TextBlock>
                 </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="KeepMaxReverse" GroupName="ROP" IsEnabled="False" Command="{Binding }">
+                <RadioButton DockPanel.Dock="Top" x:Name="KeepMaxReverse" GroupName="ROP"
+                             Command="{Binding SwitchROPExecutionModeCommand}" CommandParameter="KeepMaxReverse">
                     <TextBlock TextWrapping="Wrap">
                         Риск выкатывания присутствует после момента приземления на скорости ниже 80 узлов (KEEP MAX REVERSE)
                     </TextBlock>
@@ -53,7 +57,7 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions> 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -64,11 +68,13 @@
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                     <Canvas x:Name="NDCanvas" 
                             Width="300"
-                            Height="300">
-                        <Canvas.Background>
-                            <ImageBrush ImageSource="../Resources/ND_Display/ND_Background.png"/>
-                        </Canvas.Background>
+                            Height="300"
+                            Background="Black">
                         <Canvas.Children>
+                            <Image Name="ND_Map"
+                                   Width="{Binding ElementName=NDCanvas, Path=ActualWidth}"
+                                   Height="{Binding ElementName=NDCanvas, Path=ActualHeight}"
+                                   Source="../Resources/ND_Display/ND_Map.png"></Image>
                             <Image Name="ND_Display" 
                                    Width="{Binding ElementName=NDCanvas, Path=ActualWidth}"
                                    Height="{Binding ElementName=NDCanvas, Path=ActualHeight}"
@@ -100,10 +106,19 @@
 
             <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Width="5" HorizontalAlignment="Stretch"/>
 
-            <Canvas  x:Name="DemoCanvas" Background="LightGray"
+            <Canvas  x:Name="DemoCanvas" Background="WhiteSmoke"
                         Width="650"
                         Height="300"
                         Grid.Row="2" Grid.ColumnSpan="3">
+                <Canvas.Children> 
+                    <Rectangle Name="DemoPlane"
+                        Width="25" Height="10" Fill="Black"
+                        Canvas.Bottom="155" Canvas.Left="40"></Rectangle>
+                    <Image x:Name="DemoBackground"
+                                   Width="{Binding ElementName=DemoCanvas, Path=ActualWidth}"
+                                   Height="{Binding ElementName=DemoCanvas, Path=ActualHeight}"
+                                   Source="../Resources/DemoResources/DemoAnimationBackground.png"></Image>
+                </Canvas.Children>
             </Canvas>
         </Grid> 
     </Grid>
