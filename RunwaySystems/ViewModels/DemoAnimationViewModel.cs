@@ -39,8 +39,8 @@ namespace RunwaySystems.ViewModels
         {
             this.ROWExecutionMode = rOWExecutionMode;
             this.ROPExecutionMode = rOPExecutionMode;
-            PlanePositionX = 10;
-            PlanePositionY = 10;
+            PlanePositionX = 40;
+            PlanePositionY = 40;
         }
 
         private ROWExecutionMode _ROWExecutionMode;

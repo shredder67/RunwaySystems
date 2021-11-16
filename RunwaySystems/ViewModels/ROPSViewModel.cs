@@ -68,7 +68,7 @@ namespace RunwaySystems.ViewModels
 
 
         // Масштаб отображения ND дисплея
-        private double _ND_Scale;
+        private double _ND_Scale = 4;
         public double ND_Scale
         {
             get => _ND_Scale;
@@ -150,7 +150,7 @@ namespace RunwaySystems.ViewModels
             _AnimationViewModel = new DemoAnimationViewModel(
                 SelectedROWExectionMode, 
                 SelectedROPExectionMode);
-            // TODO: Figure out a way to disable a Play button while playing animation
+            // TODO: Disable a Play button while playing animation
 
             SwitchNDDisplayCommand = new RelayCommand(
                 OnSwitchNDDisplayCommandExecuted,
