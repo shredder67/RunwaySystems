@@ -12,12 +12,12 @@
 
   <ItemGroup>
     <Resource Include="Resources\PFD_Display\PFD_Background.png" />
-    <Resource Include="Resources\Planes\Plane.png" />
-    <Resource Include="Resources\ND_Display\PLAN_UI.png" />
+    <Resource Include="Resources\ND_Display\ND_Map.png" />
     <Resource Include="Resources\ND_Display\ROSE_UI.png" />
     <Resource Include="Resources\ND_Display\ARC_UI.png" />
-    <Resource Include="Resources\ND_Display\ND_Map.png" />
+    <Resource Include="Resources\ND_Display\PLAN_UI.png" />
     <Resource Include="Resources\DemoResources\DemoAnimationBackground.png" />
+    <Resource  Include="Resources\TheoryImages\image_1.jpg" />
   </ItemGroup>
 
   <ItemGroup>

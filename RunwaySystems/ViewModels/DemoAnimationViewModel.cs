@@ -3,9 +3,9 @@ using System.Threading;
 
 namespace RunwaySystems.ViewModels
 {
+    // Реализует проигрывание анимации исходя из заданных параметров
     class DemoAnimationViewModel : ViewModel
     {
-
         private bool _IsPlaying;
         public bool IsPlaying { 
             get => _IsPlaying;
@@ -18,10 +18,29 @@ namespace RunwaySystems.ViewModels
             set => Set(ref _Timer, value);
         }
 
-        public DemoAnimationViewModel(ROWExecutionMode rOWExecutionMode, ROPExecutionMode? rOPExecutionMode = null)
+        private int _PlanePositionX;
+        public int PlanePositionX
+        {
+            get => _PlanePositionX;
+            set => Set(ref _PlanePositionX, value);
+        }
+
+        private int _PlanePositionY;
+        public int PlanePositionY
+        {
+            get => _PlanePositionY;
+            set => Set(ref _PlanePositionY, value);
+        }
+
+
+        public DemoAnimationViewModel(
+            ROWExecutionMode rOWExecutionMode, 
+            ROPExecutionMode? rOPExecutionMode)
         {
             this.ROWExecutionMode = rOWExecutionMode;
             this.ROPExecutionMode = rOPExecutionMode;
+            PlanePositionX = 10;
+            PlanePositionY = 10;
         }
 
         private ROWExecutionMode _ROWExecutionMode;

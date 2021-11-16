@@ -47,7 +47,8 @@
                     </TextBlock>
                 </RadioButton>
 
-            <Button DockPanel.Dock="Bottom" MinHeight="15"  FontWeight="SemiBold" Content="Запуск"></Button>
+            <Button DockPanel.Dock="Bottom" MinHeight="15"  FontWeight="SemiBold" Content="Запуск"
+                    Command="{Binding ExecuteDemoCommand}"></Button>
          </DockPanel>
 
          <GridSplitter Grid.Column="1" Width="5" Background="LightGray"/>
@@ -109,11 +110,13 @@
             <Canvas  x:Name="DemoCanvas" Background="WhiteSmoke"
                         Width="650"
                         Height="300"
-                        Grid.Row="2" Grid.ColumnSpan="3">
+                        Grid.Row="2" Grid.ColumnSpan="3"
+                        DataContext="{Binding AnimationViewModel}">
                 <Canvas.Children> 
                     <Rectangle Name="DemoPlane"
                         Width="25" Height="10" Fill="Black"
-                        Canvas.Bottom="155" Canvas.Left="40"></Rectangle>
+                        Canvas.Bottom="{Binding PlanePositionY}" 
+                        Canvas.Left="{Binding PlanePositionX}"></Rectangle>
                     <Image x:Name="DemoBackground"
                                    Width="{Binding ElementName=DemoCanvas, Path=ActualWidth}"
                                    Height="{Binding ElementName=DemoCanvas, Path=ActualHeight}"

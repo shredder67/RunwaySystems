@@ -98,7 +98,6 @@ namespace RunwaySystems.ViewModels
         #endregion
 
         #region Switch ROW Execution Mode
-        // TODO: Finish Execution Mode Selection
         public ICommand SwitchROWExecutionModeCommand { get; }
         private bool CanSwitchROWExecutionModeCommandExecute(object p) => true;
         private void OnSwitchROWExecutionModeCommandExecuted(object p)
@@ -117,7 +116,7 @@ namespace RunwaySystems.ViewModels
         #endregion
 
         #region Switch ROP Execution Mode
-        // TODO: Finish Execution Mode Selection
+ 
         public ICommand SwitchROPExecutionModeCommand { get; }
         private bool CanSwitchROPExecutionModeCommandExecute(object p) => EnableROPModes;
         private void OnSwitchROPExecutionModeCommandExecuted(object p)
