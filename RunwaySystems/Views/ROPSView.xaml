@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:RunwaySystems.ViewModels"
+             xmlns:conv="clr-namespace:RunwaySystems.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1060"
              d:Background="White">
+
+    <UserControl.Resources>
+        <conv:InverseBooleanConverter x:Key="InvBoolConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35*"/>
@@ -45,10 +52,13 @@
                     <TextBlock TextWrapping="Wrap">
                         Риск выкатывания присутствует после момента приземления на скорости ниже 80 узлов (KEEP MAX REVERSE)
                     </TextBlock>
-                </RadioButton>
+                </RadioButton> 
 
             <Button DockPanel.Dock="Bottom" MinHeight="15"  FontWeight="SemiBold" Content="Запуск"
-                    Command="{Binding ExecuteDemoCommand}" IsEnabled="False">
+                    Command="{Binding ExecuteDemoCommand}" IsEnabled="{Binding IsPlaying, Converter={StaticResource InvBoolConverter}}">
+                <Button.DataContext>
+                    <vm:DemoAnimationViewModel/>
+                </Button.DataContext>
             </Button>
          </DockPanel>
 
@@ -109,20 +119,22 @@
 
             <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Width="5" HorizontalAlignment="Stretch"/>
 
-            <Canvas  x:Name="DemoCanvas" Background="WhiteSmoke"
+            <Canvas x:Name="DemoCanvas" Background="WhiteSmoke"
                         Width="650"
                         Height="300"
                         Grid.Row="2" Grid.ColumnSpan="3">
+                <Canvas.DataContext>
+                    <vm:DemoAnimationViewModel/>
+                </Canvas.DataContext>
                 <Canvas.Children>
-                    <!--TODO: Fix this shit bro, wtf, I fuck this bullshit man bruh carpet floor-->
+                    <Image x:Name="DemoBackground"
+                                   Width="650"
+                                   Height="300"
+                                   Source="../Resources/DemoResources/DemoAnimationBackground.png"></Image>
                     <Rectangle Name="DemoPlane"
                         Width="25" Height="10" Fill="Black"
-                        Canvas.Bottom="155" 
-                        Canvas.Left="45"></Rectangle>
-                    <Image x:Name="DemoBackground"
-                                   Width="{Binding ElementName=DemoCanvas, Path=ActualWidth}"
-                                   Height="{Binding ElementName=DemoCanvas, Path=ActualHeight}"
-                                   Source="../Resources/DemoResources/DemoAnimationBackground.png"></Image>
+                        Canvas.Bottom="{Binding PlanePositionY}" 
+                        Canvas.Left="{Binding PlanePositionX}"></Rectangle>
                 </Canvas.Children>
             </Canvas>
         </Grid> 

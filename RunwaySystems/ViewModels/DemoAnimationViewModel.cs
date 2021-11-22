@@ -1,11 +1,17 @@
-﻿using System;
+﻿using RunwaySystems.Commands;
+using System;
+using System.Drawing;
 using System.Threading;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace RunwaySystems.ViewModels
 {
     // Реализует проигрывание анимации исходя из заданных параметров
     class DemoAnimationViewModel : ViewModel
     {
+        #region Fields
+
         private bool _IsPlaying;
         public bool IsPlaying { 
             get => _IsPlaying;
@@ -32,17 +38,6 @@ namespace RunwaySystems.ViewModels
             set => Set(ref _PlanePositionY, value);
         }
 
-
-        public DemoAnimationViewModel(
-            ROWExecutionMode rOWExecutionMode, 
-            ROPExecutionMode? rOPExecutionMode)
-        {
-            this.ROWExecutionMode = rOWExecutionMode;
-            this.ROPExecutionMode = rOPExecutionMode;
-            PlanePositionX = 40;
-            PlanePositionY = 40;
-        }
-
         private ROWExecutionMode _ROWExecutionMode;
         public ROWExecutionMode ROWExecutionMode
         {
@@ -57,33 +52,57 @@ namespace RunwaySystems.ViewModels
             set => Set(ref _ROPExecutionMode, value);
         }
 
-        public int AnimationSpeed { get; private set; }
+        #endregion
 
-        public void Run()
+        #region Commands
+
+        #region Execute Demo
+
+        public ICommand ExecuteDemoCommand { get; }
+        private bool CanExecuteDemoCommandExecute(object p) => !IsPlaying;
+        private void OnExecuteDemoCommandExecuted(object p)
         {
-            StartTimer();
+            IsPlaying = true;
+            //TODO: Launch animation
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Constructor
+
+        public DemoAnimationViewModel()
+        {
+            PlanePositionX = 40;
+            PlanePositionY = 155;
+
+            ExecuteDemoCommand = new RelayCommand(
+                OnExecuteDemoCommandExecuted,
+                CanExecuteDemoCommandExecute
+            );
+        }
+
+        #endregion
+
+        #region AnimationLogic
+
+        private Point currentPosition;
+        private readonly Point startingPosition = new Point(40, 155);
+        private readonly Point rowToRopPosition = new Point(25, 230);
+        private readonly Point shortStopPosition = new Point(40, 450);
+        private readonly Point midStopPosition = new Point(40, 540);
+        private readonly Point farStopPosition = new Point(40, 615);
+        
+
+        private void playDemo()
+        {
+            currentPosition = new Point(PlanePositionX, PlanePositionY);
 
         }
 
-        private void StartTimer()
-        {
-            StopTimer();
-            Timer = new Timer(x => Timer_Tick(), null, 0, 100 / AnimationSpeed);
-        }
+        #endregion
 
-        private void Timer_Tick()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void StopTimer()
-        {
-            if (Timer != null)
-            {
-                Timer.Dispose();
-                Timer = null;
-            }
-        }
 
     }
 }

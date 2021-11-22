@@ -75,14 +75,6 @@ namespace RunwaySystems.ViewModels
             set => Set(ref _ND_Scale, value);
         }
 
-        // Демонстрация посадки самолета
-        private DemoAnimationViewModel _AnimationViewModel;
-        private DemoAnimationViewModel AnimationViewModel
-        {
-            get => _AnimationViewModel;
-            set => Set(ref _AnimationViewModel, value);
-        }
-
         #endregion
 
         #region Commands
@@ -127,18 +119,6 @@ namespace RunwaySystems.ViewModels
 
         #endregion
 
-        #region Execute Demo
-
-        public ICommand ExecuteDemoCommand { get; }
-        private bool CanExecuteDemoCommandExecute(object p) => true;
-        private void OnExecuteDemoCommandExecuted(object p)
-        {
-            AnimationViewModel.ROWExecutionMode = SelectedROWExectionMode;
-            AnimationViewModel.Run();
-        }
-
-        #endregion
-
         #endregion
 
         public ROPSViewModel()
@@ -147,10 +127,6 @@ namespace RunwaySystems.ViewModels
             displaySources[ND_Overlay.ARC] = new Uri("pack://application:,,,/Resources/ND_Display/ARC_UI.png");
             displaySources[ND_Overlay.PLAN] = new Uri("pack://application:,,,/Resources/ND_Display/PLAN_UI.png");
             _CurrentND_Display = displaySources[ND_Overlay.ROSE];
-            _AnimationViewModel = new DemoAnimationViewModel(
-                SelectedROWExectionMode, 
-                SelectedROPExectionMode);
-            // TODO: Disable a Play button while playing animation
 
             SwitchNDDisplayCommand = new RelayCommand(
                 OnSwitchNDDisplayCommandExecuted,
@@ -165,11 +141,6 @@ namespace RunwaySystems.ViewModels
             SwitchROPExecutionModeCommand = new RelayCommand(
                  OnSwitchROPExecutionModeCommandExecuted,
                  CanSwitchROPExecutionModeCommandExecute
-            );
-
-            ExecuteDemoCommand = new RelayCommand(
-                OnExecuteDemoCommandExecuted,
-                CanExecuteDemoCommandExecute
             );
         }
 

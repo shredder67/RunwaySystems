@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -17,7 +17,7 @@
     <Resource Include="Resources\ND_Display\ARC_UI.png" />
     <Resource Include="Resources\ND_Display\PLAN_UI.png" />
     <Resource Include="Resources\DemoResources\DemoAnimationBackground.png" />
-    <Resource  Include="Resources\TheoryImages\image_1.jpg" />
+    <Resource Include="Resources\TheoryImages\image_1.jpg" />
   </ItemGroup>
 
   <ItemGroup>
