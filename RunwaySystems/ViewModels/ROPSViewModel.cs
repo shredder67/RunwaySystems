@@ -38,14 +38,14 @@ namespace RunwaySystems.ViewModels
         }
 
         private ROWExecutionMode _SelectedROWExecutionMode;
-        public ROWExecutionMode SelectedROWExectionMode
+        public ROWExecutionMode SelectedROWExecutionMode
         {
             get => _SelectedROWExecutionMode;
             set => Set(ref _SelectedROWExecutionMode, value);
         }
 
         private ROPExecutionMode? _SelectedROPExecutionMode;
-        public ROPExecutionMode? SelectedROPExectionMode
+        public ROPExecutionMode? SelectedROPExecutionMode
         {
             get => _SelectedROPExecutionMode;
             set => Set(ref _SelectedROPExecutionMode, value);
@@ -130,9 +130,9 @@ namespace RunwaySystems.ViewModels
             else
             {
                 EnableROPModes = false;
-                SelectedROPExectionMode = null;
+                SelectedROPExecutionMode = null;
             }
-            SelectedROWExectionMode = mode;
+            SelectedROWExecutionMode = mode;
         }
 
         #endregion
@@ -144,7 +144,7 @@ namespace RunwaySystems.ViewModels
         private void OnSwitchROPExecutionModeCommandExecuted(object p)
         {
             var mode = (ROPExecutionMode)Enum.Parse(typeof(ROPExecutionMode), p.ToString());
-            SelectedROPExectionMode = mode;
+            SelectedROPExecutionMode = mode;
         }
 
         #endregion
@@ -201,25 +201,27 @@ namespace RunwaySystems.ViewModels
 
         private void playDemo()
         {
-            _animationSpeed = 2;
-            IsPlaying = true;
+            
 
             _start = startingPosition;
             _mid = rowToRopPosition;
 
-            if (SelectedROWExectionMode == ROWExecutionMode.PerfectLanding)
+            if (SelectedROWExecutionMode == ROWExecutionMode.PerfectLanding)
                 _end = shortStopPosition;
-            else if (SelectedROPExectionMode == ROPExecutionMode.KeepMaxReverse)
+            else if (SelectedROPExecutionMode == ROPExecutionMode.KeepMaxReverse)
                 _end = farStopPosition;
             else
                 _end = midStopPosition;
 
+            _timeCounter = 0;
+            _animationSpeed = 4;
+            IsPlaying = true;
             _dTimer.Start();
         }
 
         private DispatcherTimer _dTimer = new DispatcherTimer();
         private double _animationSpeed;
-        private double _timeCounter = 0;
+        private double _timeCounter;
         private Point _start, _mid, _end;
         private void DiagonalMoveUpdate(object sender, EventArgs e)
         {
@@ -270,6 +272,23 @@ namespace RunwaySystems.ViewModels
                 Y = Math.Clamp((int)(((1 - t) * p1.Y) + t * p2.Y), p2.Y, p1.Y)
             };
             return res;
+        }
+
+        private string ROWExecutionModeToMessage()
+        {
+            if (SelectedROWExecutionMode == ROWExecutionMode.PerfectLanding)
+                return "A";
+            if (SelectedROWExecutionMode == ROWExecutionMode.IfWetRWYTooShort)
+                return "B";
+            return "C";
+        }
+        private string ROPExecutionModeToMessage()
+        {
+            if (SelectedROPExecutionMode == ROPExecutionMode.MaxBreakingMaxReverse)
+                return "D";
+            if (SelectedROPExecutionMode == ROPExecutionMode.KeepMaxReverse)
+                return "E";
+            return "";
         }
 
         #endregion

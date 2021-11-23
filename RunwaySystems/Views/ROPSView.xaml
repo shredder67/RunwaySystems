@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:RunwaySystems.ViewModels"
              xmlns:conv="clr-namespace:RunwaySystems.ViewModels.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="760" d:DesignWidth="1060"
+             d:DesignHeight="650" d:DesignWidth="1000"
              d:Background="White">
 
     <UserControl.Resources>
@@ -69,7 +69,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border x:Name="NDBorder" Grid.Row="0" Grid.Column="0" BorderThickness="3" Margin="10 5">
+            <!--<Border x:Name="NDBorder" Grid.Row="0" Grid.Column="0" BorderThickness="3" Margin="10 5">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                     <Canvas x:Name="NDCanvas" 
                             Width="300"
@@ -97,10 +97,10 @@
                         <Button Content="PLAN" Command="{Binding SwitchNDDisplayCommand}" 
                                 CommandParameter="PLAN"></Button>
                     </UniformGrid>
-                </StackPanel>
-            </Border>
+                </StackPanel>  
+            </Border>-->
 
-            <Border x:Name="PFDBorder" Grid.Row="0" Grid.Column="2" BorderThickness="3" VerticalAlignment="Top"  Margin="10 5">
+            <Border x:Name="PFDBorder" Grid.Row="0" Grid.ColumnSpan="3" BorderThickness="3" VerticalAlignment="Top"  Margin="10 5">
                 <Canvas x:Name="PFDCanvas" 
                         Width="300"
                         Height="300">
@@ -119,12 +119,16 @@
                     <Canvas.Children>
                         <Image x:Name="DemoBackground"
                                    Width="650"
-                                   Height="300"
+                                   Height="300" 
                                    Source="../Resources/DemoResources/DemoAnimationBackground.png"></Image>
                         <Rectangle Name="DemoPlane"
-                        Width="25" Height="10" Fill="Black" 
+                        Width="40" Height="20"  
                         Canvas.Bottom="{Binding PlanePositionY}" 
-                        Canvas.Left="{Binding PlanePositionX}"></Rectangle>
+                        Canvas.Left="{Binding PlanePositionX}">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/Resources/DemoResources/plane.png"></ImageBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
                     </Canvas.Children>
                 </Canvas>
                 <Button MinHeight="15"  FontWeight="SemiBold" Content="Запуск" Width="150" Margin="5"

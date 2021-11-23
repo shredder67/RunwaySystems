@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:RunwaySystems.Views"
         xmlns:viewmodels="clr-namespace:RunwaySystems.ViewModels"
         mc:Ignorable="d"
-        Title="Runway Systems" Height="768" Width="1100" ResizeMode="CanMinimize">
+        Title="Runway Systems" Height="710" Width="1050" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <!-- Views to ViewModels bindings -->

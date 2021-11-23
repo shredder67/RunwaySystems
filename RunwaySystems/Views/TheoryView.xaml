@@ -49,8 +49,8 @@
 
             <BlockUIContainer>
                 <StackPanel>
-                    <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.2 Скриншот дисплеев в программе</TextBlock>
+                    <Image Width="500" Height="500" Source="/Resources/TheoryImages/image_2.jpg"></Image>
+                    <TextBlock TextAlignment="Center">Рис.2 ND-Дисплей</TextBlock>
                 </StackPanel>
             </BlockUIContainer>
 
@@ -121,7 +121,7 @@
             <BlockUIContainer>
                 <StackPanel>
                     <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.3 Скриншот дисплеев в программе</TextBlock>
+                    <TextBlock TextAlignment="Center">Рис.3 Скриншот PFD в программе</TextBlock>
                 </StackPanel>
             </BlockUIContainer>
 
@@ -144,7 +144,7 @@
             <BlockUIContainer>
                 <StackPanel>
                     <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.4 Скриншот дисплеев в программе</TextBlock>
+                    <TextBlock TextAlignment="Center">Рис.4 Скриншот PFD в программе</TextBlock>
                 </StackPanel>
             </BlockUIContainer>
 
@@ -169,7 +169,7 @@
             <BlockUIContainer>
                 <StackPanel>
                     <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.5 Скриншот дисплеев в программе</TextBlock>
+                    <TextBlock TextAlignment="Center">Рис.5 Скриншот PFD в программе</TextBlock>
                 </StackPanel>
             </BlockUIContainer>
 
