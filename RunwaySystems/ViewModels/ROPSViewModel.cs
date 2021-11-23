@@ -1,11 +1,13 @@
 ﻿using RunwaySystems.Commands;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace RunwaySystems.ViewModels
 {
@@ -75,6 +77,34 @@ namespace RunwaySystems.ViewModels
             set => Set(ref _ND_Scale, value);
         }
 
+        private bool _IsPlaying;
+        public bool IsPlaying
+        {
+            get => _IsPlaying;
+            set => Set(ref _IsPlaying, value);
+        }
+
+        private int _PlanePositionX = 40;
+        public int PlanePositionX
+        {
+            get => _PlanePositionX;
+            set => Set(ref _PlanePositionX, value);
+        }
+
+        private int _PlanePositionY = 155;
+        public int PlanePositionY
+        {
+            get => _PlanePositionY;
+            set => Set(ref _PlanePositionY, value);
+        }
+
+        private string _PFD_Message = "";
+        public string PFD_Message
+        {
+            get => _PFD_Message;
+            set => Set(ref _PFD_Message, value);
+        }
+
         #endregion
 
         #region Commands
@@ -119,6 +149,15 @@ namespace RunwaySystems.ViewModels
 
         #endregion
 
+        #region Play Demo Animation
+
+        public ICommand ExecuteDemoCommand { get; }
+
+        private bool CanExecuteDemoCommandExecute(object p) => true;
+        private void OnExecuteDemoCommandExecuted(object p) => playDemo();
+
+        #endregion
+
         #endregion
 
         public ROPSViewModel()
@@ -127,6 +166,9 @@ namespace RunwaySystems.ViewModels
             displaySources[ND_Overlay.ARC] = new Uri("pack://application:,,,/Resources/ND_Display/ARC_UI.png");
             displaySources[ND_Overlay.PLAN] = new Uri("pack://application:,,,/Resources/ND_Display/PLAN_UI.png");
             _CurrentND_Display = displaySources[ND_Overlay.ROSE];
+            _dTimer.Interval = TimeSpan.FromMilliseconds(15);
+            _dTimer.Tick += new EventHandler(DiagonalMoveUpdate);
+
 
             SwitchNDDisplayCommand = new RelayCommand(
                 OnSwitchNDDisplayCommandExecuted,
@@ -142,7 +184,94 @@ namespace RunwaySystems.ViewModels
                  OnSwitchROPExecutionModeCommandExecuted,
                  CanSwitchROPExecutionModeCommandExecute
             );
+
+            ExecuteDemoCommand = new RelayCommand(
+               OnExecuteDemoCommandExecuted,
+               CanExecuteDemoCommandExecute
+           );
         }
 
+        #region Demo Logic
+
+        private static readonly Point startingPosition = new Point(40, 155);
+        private static readonly Point rowToRopPosition = new Point(230, 25);
+        private static readonly Point shortStopPosition = new Point(450, 25);
+        private static readonly Point midStopPosition = new Point(540, 25);
+        private static readonly Point farStopPosition = new Point(615, 25);
+
+        private void playDemo()
+        {
+            _animationSpeed = 2;
+            IsPlaying = true;
+
+            _start = startingPosition;
+            _mid = rowToRopPosition;
+
+            if (SelectedROWExectionMode == ROWExecutionMode.PerfectLanding)
+                _end = shortStopPosition;
+            else if (SelectedROPExectionMode == ROPExecutionMode.KeepMaxReverse)
+                _end = farStopPosition;
+            else
+                _end = midStopPosition;
+
+            _dTimer.Start();
+        }
+
+        private DispatcherTimer _dTimer = new DispatcherTimer();
+        private double _animationSpeed;
+        private double _timeCounter = 0;
+        private Point _start, _mid, _end;
+        private void DiagonalMoveUpdate(object sender, EventArgs e)
+        {
+            if (PlanePositionX >= _mid.X && PlanePositionY <= _mid.Y)
+            {
+                _dTimer.Tick -= DiagonalMoveUpdate;
+                _dTimer.Tick += HorizontalMoveUpdate;
+                _timeCounter = 0;
+                return;
+            }
+
+            _timeCounter += _dTimer.Interval.TotalSeconds;
+            var interpol = LinearInterpol(_start, _mid, _timeCounter / _animationSpeed);
+            this.PlanePositionX = interpol.X;
+            this.PlanePositionY = interpol.Y;
+        }
+
+        private void HorizontalMoveUpdate(object sender, EventArgs e)
+        {
+            if (PlanePositionX >= _end.X)
+            {
+                _dTimer.Stop();
+                _dTimer.Tick += DiagonalMoveUpdate;
+                _dTimer.Tick -= HorizontalMoveUpdate;
+                IsPlaying = false;
+                _timeCounter = 0;
+                PFD_Message = "";
+
+                Task.Delay(1000).Wait();
+                
+                PlanePositionX = startingPosition.X;
+                PlanePositionY = startingPosition.Y;
+                
+                return;
+            }
+
+            _timeCounter += _dTimer.Interval.TotalSeconds;
+            var interpol = LinearInterpol(_mid, _end, _timeCounter / _animationSpeed);
+            this.PlanePositionX = interpol.X;
+            this.PlanePositionY = interpol.Y;
+        }
+
+        private Point LinearInterpol(Point p1, Point p2, double t)
+        {
+            var res = new Point
+            {
+                X = Math.Clamp((int)(((1 - t) * p1.X) + t * p2.X), p1.X, p2.X),
+                Y = Math.Clamp((int)(((1 - t) * p1.Y) + t * p2.Y), p2.Y, p1.Y)
+            };
+            return res;
+        }
+
+        #endregion
     }
 }

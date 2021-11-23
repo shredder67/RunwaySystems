@@ -113,9 +113,6 @@
             <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Width="5" HorizontalAlignment="Stretch"/>
 
             <StackPanel  Grid.Row="2" Grid.ColumnSpan="3">
-                <StackPanel.DataContext>
-                    <vm:DemoViewModel/>
-                </StackPanel.DataContext>
                 <Canvas x:Name="DemoCanvas" Background="WhiteSmoke"
                         Width="650"
                         Height="300">
