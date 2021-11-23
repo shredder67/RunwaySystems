@@ -6,6 +6,6 @@
              xmlns:local="clr-namespace:RunwaySystems.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <MediaElement Source="Resources/DemoResources/RAAS_video.wmv" x:Name="RAASPlayer" LoadedBehavior="Play" UnloadedBehavior="Close" Stretch="Fill" Volume="0"
-     MediaFailed="PlayerLoadFailed"></MediaElement>
+    <MediaElement Source="Resources/DemoResources/RAAS_video.wmv" x:Name="RAASPlayer" LoadedBehavior="Manual" UnloadedBehavior="Close" Stretch="Fill" Volume="0.4"
+     MediaFailed="PlayerLoadFailed" MouseDown="RAASPlayer_MouseDown"></MediaElement>
 </UserControl>

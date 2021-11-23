@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <conv:InverseBooleanConverter x:Key="InvBoolConverter"/>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35*"/>
@@ -22,31 +22,31 @@
         <DockPanel Grid.Column="0"  LastChildFill="false" Margin="20">
             <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold">
                 Конфигурация посадки
-                </Label>
-                <RadioButton DockPanel.Dock="Top" x:Name="PerfectLanding" GroupName="ROW" IsChecked="True" 
+            </Label>
+            <RadioButton DockPanel.Dock="Top" x:Name="PerfectLanding" GroupName="ROW" IsChecked="True" 
                              Command="{Binding SwitchROWExecutionModeCommand}" CommandParameter="PerfectLanding">
-                    <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap">
                         Риск выкатывания за пределы ВПП отсутствует
-                    </TextBlock>
-                </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="IfWetRWYTooShort" GroupName="ROW"
+                </TextBlock>
+            </RadioButton>
+            <RadioButton DockPanel.Dock="Top" x:Name="IfWetRWYTooShort" GroupName="ROW"
                              Command="{Binding SwitchROWExecutionModeCommand}" CommandParameter="IfWetRWYTooShort">
-                    <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap">
                         Риск выкатывания с влажной полосы(IF WET RWY TOO SHORT)
-                    </TextBlock>
-                </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="RWYTooShort" GroupName="ROW"
+                </TextBlock>
+            </RadioButton>
+            <RadioButton DockPanel.Dock="Top" x:Name="RWYTooShort" GroupName="ROW"
                              Command="{Binding SwitchROWExecutionModeCommand}" CommandParameter="RWYTooShort">
-                    <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap">
                         Риск выкатывания с сухой полосы (RWY TOO SHORT)
-                    </TextBlock>
-                </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="MaxBreakingMaxReverse" GroupName="ROP"
+                </TextBlock>
+            </RadioButton>
+            <RadioButton DockPanel.Dock="Top" x:Name="MaxBreakingMaxReverse" GroupName="ROP"
                              Command="{Binding SwitchROPExecutionModeCommand}" CommandParameter="MaxBreakingMaxReverse">
-                    <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap">
                         Риск выкатывания за пределы ВПП с момента приземления ( MAX BRAKING, MAX REVERSE)
-                    </TextBlock>
-                </RadioButton>
+                </TextBlock>
+            </RadioButton>
             <RadioButton DockPanel.Dock="Top" x:Name="KeepMaxReverse" GroupName="ROP"
                              Command="{Binding SwitchROPExecutionModeCommand}" CommandParameter="KeepMaxReverse">
                 <TextBlock TextWrapping="Wrap">
@@ -55,14 +55,14 @@
             </RadioButton>
         </DockPanel>
 
-         <GridSplitter Grid.Column="1" Width="5" Background="LightGray"/>
+        <GridSplitter Grid.Column="1" Width="5" Background="LightGray"/>
 
         <Grid Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions> 
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -107,8 +107,16 @@
                     <Canvas.Background>
                         <ImageBrush ImageSource="..//Resources/PFD_Display/PFD_Background.png"/>
                     </Canvas.Background>
+                    <Canvas.Children>
+                        <TextBlock MinWidth="100" FontSize="18" TextAlignment="Center" 
+                                   Text="{Binding PFD_Message}" Canvas.Left="1" Canvas.Top="122" Width="297" Height="56" LineHeight="7">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="Red"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Canvas.Children>
                 </Canvas>
-            </Border> 
+            </Border>
 
             <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Width="5" HorizontalAlignment="Stretch"/>
 
@@ -118,7 +126,7 @@
                         Height="300">
                     <Canvas.Children>
                         <Image x:Name="DemoBackground"
-                                   Width="650"
+                                   Width="650"  
                                    Height="300" 
                                    Source="../Resources/DemoResources/DemoAnimationBackground.png"></Image>
                         <Rectangle Name="DemoPlane"
@@ -135,6 +143,6 @@
                     Command="{Binding ExecuteDemoCommand}" IsEnabled="{Binding IsPlaying, Converter={StaticResource InvBoolConverter}}">
                 </Button>
             </StackPanel>
-        </Grid> 
+        </Grid>
     </Grid>
 </UserControl>

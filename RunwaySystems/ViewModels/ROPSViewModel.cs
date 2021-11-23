@@ -126,7 +126,10 @@ namespace RunwaySystems.ViewModels
         {
             var mode = (ROWExecutionMode) Enum.Parse(typeof(ROWExecutionMode), p.ToString());
             if (mode != ROWExecutionMode.PerfectLanding)
+            {
                 EnableROPModes = true;
+                _SelectedROPExecutionMode = ROPExecutionMode.MaxBreakingMaxReverse;
+            }
             else
             {
                 EnableROPModes = false;
@@ -216,6 +219,7 @@ namespace RunwaySystems.ViewModels
             _timeCounter = 0;
             _animationSpeed = 4;
             IsPlaying = true;
+            PFD_Message = ROWExecutionModeToMessage();
             _dTimer.Start();
         }
 
@@ -230,6 +234,7 @@ namespace RunwaySystems.ViewModels
                 _dTimer.Tick -= DiagonalMoveUpdate;
                 _dTimer.Tick += HorizontalMoveUpdate;
                 _timeCounter = 0;
+                PFD_Message = ROPExecutionModeToMessage();
                 return;
             }
 
@@ -277,17 +282,17 @@ namespace RunwaySystems.ViewModels
         private string ROWExecutionModeToMessage()
         {
             if (SelectedROWExecutionMode == ROWExecutionMode.PerfectLanding)
-                return "A";
+                return "";
             if (SelectedROWExecutionMode == ROWExecutionMode.IfWetRWYTooShort)
-                return "B";
-            return "C";
+                return "IF WET: RWY TOO SHORT";
+            return "RUNWAY TOO SHORT";
         }
         private string ROPExecutionModeToMessage()
         {
             if (SelectedROPExecutionMode == ROPExecutionMode.MaxBreakingMaxReverse)
-                return "D";
+                return "MAX BRAKE\nMAX REVERSE";
             if (SelectedROPExecutionMode == ROPExecutionMode.KeepMaxReverse)
-                return "E";
+                return "MAX BRAKE\nMAX REVERSE";
             return "";
         }
 

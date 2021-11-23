@@ -118,13 +118,6 @@
                 </ListItem>
             </List>
 
-            <BlockUIContainer>
-                <StackPanel>
-                    <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.3 Скриншот PFD в программе</TextBlock>
-                </StackPanel>
-            </BlockUIContainer>
-
             <Paragraph>
                 Если на высоте меньшей 200 футов в ходе расчетов система решает, 
                         что дистанция пробега на сухой ВПП больше чем LDA:
@@ -143,8 +136,8 @@
 
             <BlockUIContainer>
                 <StackPanel>
-                    <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.4 Скриншот PFD в программе</TextBlock>
+                    <Image Source="../Resources/TheoryImages/image_3.jpg" Width="500" Height="300"></Image>
+                    <TextBlock TextAlignment="Center">Рис.4 Сообщения на PFD</TextBlock>
                 </StackPanel>
             </BlockUIContainer>
 
@@ -168,8 +161,8 @@
 
             <BlockUIContainer>
                 <StackPanel>
-                    <Image Width="500" Height="200"></Image>
-                    <TextBlock TextAlignment="Center">Рис.5 Скриншот PFD в программе</TextBlock>
+                    <Image Source="../Resources/TheoryImages/image_4.jpg" Width="500" Height="300"></Image>
+                    <TextBlock TextAlignment="Center">Рис.5 Сообщение на PFD</TextBlock>
                 </StackPanel>
             </BlockUIContainer>
 

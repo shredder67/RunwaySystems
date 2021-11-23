@@ -20,11 +20,28 @@ namespace RunwaySystems.Views
         {
             InitializeComponent();
             this.DataContext = new RAASViewModel();
+            RAASPlayer.Play();
         }
 
         private void PlayerLoadFailed(object sender, ExceptionRoutedEventArgs e)
         {
             MessageBox.Show("Video couldn't load, something went wrong!\n\n" + e.ToString());
+        }
+
+        private bool _isPlaying = true;
+        private void RAASPlayer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_isPlaying)
+            {
+                this.RAASPlayer.Pause();
+                _isPlaying = false;
+            }
+            else
+            {
+                this.RAASPlayer.Play();
+                _isPlaying = true;
+            }
+                
         }
     }
 }

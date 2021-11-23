@@ -9,6 +9,8 @@
   <ItemGroup>
     <None Remove="Resources\DemoResources\plane.png" />
     <None Remove="Resources\TheoryImages\image_2.jpg" />
+    <None Remove="Resources\TheoryImages\image_3.jpg" />
+    <None Remove="Resources\TheoryImages\image_4.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,8 @@
     <Resource Include="Resources\TheoryImages\image_1.jpg" />
     <Resource Include="Resources\DemoResources\DemoAnimationBackground.png" />
     <Resource Include="Resources\TheoryImages\image_2.jpg" />
+    <Resource Include="Resources\TheoryImages\image_3.jpg" />
+    <Resource Include="Resources\TheoryImages\image_4.jpg" />
   </ItemGroup>
 
   <ItemGroup>
