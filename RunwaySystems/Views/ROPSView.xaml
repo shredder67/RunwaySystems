@@ -47,20 +47,13 @@
                         Риск выкатывания за пределы ВПП с момента приземления ( MAX BRAKING, MAX REVERSE)
                     </TextBlock>
                 </RadioButton>
-                <RadioButton DockPanel.Dock="Top" x:Name="KeepMaxReverse" GroupName="ROP"
+            <RadioButton DockPanel.Dock="Top" x:Name="KeepMaxReverse" GroupName="ROP"
                              Command="{Binding SwitchROPExecutionModeCommand}" CommandParameter="KeepMaxReverse">
-                    <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap">
                         Риск выкатывания присутствует после момента приземления на скорости ниже 80 узлов (KEEP MAX REVERSE)
-                    </TextBlock>
-                </RadioButton> 
-
-            <Button DockPanel.Dock="Bottom" MinHeight="15"  FontWeight="SemiBold" Content="Запуск"
-                    Command="{Binding ExecuteDemoCommand}" IsEnabled="{Binding IsPlaying, Converter={StaticResource InvBoolConverter}}">
-                <Button.DataContext>
-                    <vm:DemoAnimationViewModel/>
-                </Button.DataContext>
-            </Button>
-         </DockPanel>
+                </TextBlock>
+            </RadioButton>
+        </DockPanel>
 
          <GridSplitter Grid.Column="1" Width="5" Background="LightGray"/>
 
@@ -119,24 +112,28 @@
 
             <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Width="5" HorizontalAlignment="Stretch"/>
 
-            <Canvas x:Name="DemoCanvas" Background="WhiteSmoke"
+            <StackPanel  Grid.Row="2" Grid.ColumnSpan="3">
+                <StackPanel.DataContext>
+                    <vm:DemoViewModel/>
+                </StackPanel.DataContext>
+                <Canvas x:Name="DemoCanvas" Background="WhiteSmoke"
                         Width="650"
-                        Height="300"
-                        Grid.Row="2" Grid.ColumnSpan="3">
-                <Canvas.DataContext>
-                    <vm:DemoAnimationViewModel/>
-                </Canvas.DataContext>
-                <Canvas.Children>
-                    <Image x:Name="DemoBackground"
+                        Height="300">
+                    <Canvas.Children>
+                        <Image x:Name="DemoBackground"
                                    Width="650"
                                    Height="300"
                                    Source="../Resources/DemoResources/DemoAnimationBackground.png"></Image>
-                    <Rectangle Name="DemoPlane"
-                        Width="25" Height="10" Fill="Black"
+                        <Rectangle Name="DemoPlane"
+                        Width="25" Height="10" Fill="Black" 
                         Canvas.Bottom="{Binding PlanePositionY}" 
                         Canvas.Left="{Binding PlanePositionX}"></Rectangle>
-                </Canvas.Children>
-            </Canvas>
+                    </Canvas.Children>
+                </Canvas>
+                <Button MinHeight="15"  FontWeight="SemiBold" Content="Запуск" Width="150" Margin="5"
+                    Command="{Binding ExecuteDemoCommand}" IsEnabled="{Binding IsPlaying, Converter={StaticResource InvBoolConverter}}">
+                </Button>
+            </StackPanel>
         </Grid> 
     </Grid>
 </UserControl>

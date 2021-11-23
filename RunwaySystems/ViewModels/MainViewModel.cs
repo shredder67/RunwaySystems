@@ -32,15 +32,24 @@ namespace RunwaySystems.ViewModels
                 {
                     case "ROPSView":
                         if (!(_selectedViewModel is ROPSViewModel))
+                        {
+                            SelectedViewModel.Dispose();
                             SelectedViewModel = new ROPSViewModel();
+                        }
                         break;
                     case "RAASView":
                         if (!(_selectedViewModel is RAASViewModel))
+                        {
+                            SelectedViewModel.Dispose();
                             SelectedViewModel = new RAASViewModel();
+                        }
                         break;
                     case "TheoryView":
                         if (!(_selectedViewModel is TheoryViewModel))
+                        {
+                            SelectedViewModel.Dispose();
                             SelectedViewModel = new TheoryViewModel();
+                        }
                         break;
                 }
             }

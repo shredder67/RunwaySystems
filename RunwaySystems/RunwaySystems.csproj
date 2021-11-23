@@ -16,8 +16,8 @@
     <Resource Include="Resources\ND_Display\ROSE_UI.png" />
     <Resource Include="Resources\ND_Display\ARC_UI.png" />
     <Resource Include="Resources\ND_Display\PLAN_UI.png" />
-    <Resource Include="Resources\DemoResources\DemoAnimationBackground.png" />
     <Resource Include="Resources\TheoryImages\image_1.jpg" />
+    <Resource Include="Resources\DemoResources\DemoAnimationBackground.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +28,12 @@
 
   <ItemGroup>
     <Folder Include="Resources\Icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\DemoResources\RAAS_video.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

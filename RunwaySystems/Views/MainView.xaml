@@ -18,6 +18,10 @@
         <DataTemplate DataType="{x:Type viewmodels:TheoryViewModel}">
             <views:TheoryView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:RAASViewModel}">
+            <views:RAASView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>
