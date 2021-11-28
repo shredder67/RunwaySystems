@@ -11,16 +11,50 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace RunwaySystems.Views
 {
     public partial class RAASView : UserControl
     {
+
+        private DispatcherTimer videoTimer = new DispatcherTimer();
+        private bool isPaused;
+
         public RAASView()
         {
             InitializeComponent();
+            this.PreviewMouseUp += new MouseButtonEventHandler(timelineSlider_MouseUp);
             this.DataContext = new RAASViewModel();
+            videoTimer.Tick += new EventHandler(VideoTimer_Tick);
+            videoTimer.Interval = new TimeSpan(0, 0, 1);
+            isPaused = true;
+        }
+
+        private void RAASPlayer_Loaded(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(RAASPlayer.Source.ToString());
             RAASPlayer.Play();
+            videoTimer.Start();
+            isPaused = false;
+        }
+
+        private void RAASPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            timelineSlider.Maximum = RAASPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+        }
+
+        private void VideoTimer_Tick(object sender, EventArgs e)
+        {
+            timelineSlider.Value += 1;
+
+            if (RAASPlayer.Source != null)
+            {
+                if (RAASPlayer.NaturalDuration.HasTimeSpan)
+                    lblStatus.Content = String.Format("{0} / {1}", RAASPlayer.Position.ToString(@"mm\:ss"), RAASPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+            }
+            else
+                lblStatus.Content = "No file selected...";
         }
 
         private void PlayerLoadFailed(object sender, ExceptionRoutedEventArgs e)
@@ -28,20 +62,43 @@ namespace RunwaySystems.Views
             MessageBox.Show("Video couldn't load, something went wrong!\n\n" + e.ToString());
         }
 
-        private bool _isPlaying = true;
         private void RAASPlayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (_isPlaying)
+            if (!isPaused)
             {
+                videoTimer.Stop();
                 this.RAASPlayer.Pause();
-                _isPlaying = false;
+                isPaused = true;
             }
             else
             {
+                videoTimer.Start();
                 this.RAASPlayer.Play();
-                _isPlaying = true;
+                isPaused = false;
+            }    
+        }
+
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            RAASPlayer.Volume = (double)VolumeSlider.Value;
+        }
+
+        private bool _timeManualChange = false;
+        private void timelineSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(_timeManualChange)
+            {
+                int sliderValue = (int)timelineSlider.Value;
+                TimeSpan ts = sliderValue * videoTimer.Interval;
+                RAASPlayer.Position = ts;
+                _timeManualChange = false;
             }
-                
+        }
+
+        private void timelineSlider_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _timeManualChange = true;
         }
     }
 }

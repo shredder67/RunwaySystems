@@ -6,6 +6,21 @@
              xmlns:local="clr-namespace:RunwaySystems.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <MediaElement Source="Resources/DemoResources/RAAS_video.wmv" x:Name="RAASPlayer" LoadedBehavior="Manual" UnloadedBehavior="Close" Stretch="Fill" Volume="0.4"
-     MediaFailed="PlayerLoadFailed" MouseDown="RAASPlayer_MouseDown"></MediaElement>
+    <StackPanel Orientation="Vertical">
+        <MediaElement Source="{Binding RAASSource}" x:Name="RAASPlayer" LoadedBehavior="Manual" UnloadedBehavior="Close" Stretch="Fill" Volume="0.4"
+         MediaFailed="PlayerLoadFailed" MouseDown="RAASPlayer_MouseDown" MediaOpened="RAASPlayer_MediaOpened" Loaded="RAASPlayer_Loaded"></MediaElement>
+        <Grid VerticalAlignment="Bottom" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Slider  Grid.Column="0" Name="timelineSlider" 
+                    MouseUp="timelineSlider_MouseUp" ValueChanged="timelineSlider_ValueChanged" VerticalAlignment="Center" SmallChange="1"/>
+            
+            <Slider Grid.Column="1" Name="VolumeSlider" 
+                    VerticalAlignment="Center" ValueChanged="VolumeSlider_ValueChanged" Value="0.3" Width="100" Minimum="0" Maximum="1"/>
+        </Grid>
+        <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="5" />
+    </StackPanel>
 </UserControl>
