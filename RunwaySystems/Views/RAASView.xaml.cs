@@ -77,7 +77,6 @@ namespace RunwaySystems.Views
             }    
         }
 
-
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             RAASPlayer.Volume = (double)VolumeSlider.Value;
