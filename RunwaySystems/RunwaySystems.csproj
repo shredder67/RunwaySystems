@@ -42,7 +42,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\DemoResources\RAAS_intro.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DemoResources\RAAS_POV.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\DemoResources\RAAS_video.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DemoResources\RAAS_video_2.wmv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -18,7 +18,8 @@ namespace RunwaySystems.ViewModels
         //Handle property update closure
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
         {
-            if (field.Equals(value)) return false;
+            if (field != null && field.Equals(value))
+                return false;
             field = value;
             OnPropertyChanged(PropertyName);
             return true;

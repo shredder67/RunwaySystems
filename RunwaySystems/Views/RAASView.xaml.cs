@@ -33,7 +33,6 @@ namespace RunwaySystems.Views
 
         private void RAASPlayer_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(RAASPlayer.Source.ToString());
             RAASPlayer.Play();
             videoTimer.Start();
             isPaused = false;
@@ -59,7 +58,7 @@ namespace RunwaySystems.Views
 
         private void PlayerLoadFailed(object sender, ExceptionRoutedEventArgs e)
         {
-            MessageBox.Show("Video couldn't load, something went wrong!\n\n" + e.ToString());
+            MessageBox.Show("Video couldn't load, something went wrong!\n\n" + e.ToString() + "\n\n" + RAASPlayer.Source);
         }
 
         private void RAASPlayer_MouseDown(object sender, MouseButtonEventArgs e)
@@ -99,6 +98,13 @@ namespace RunwaySystems.Views
         private void timelineSlider_MouseUp(object sender, MouseButtonEventArgs e)
         {
             _timeManualChange = true;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            timelineSlider.Value = timelineSlider.Minimum;
+            _timeManualChange = true;
+            timelineSlider_ValueChanged(this, null);
         }
     }
 }

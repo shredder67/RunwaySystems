@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <MediaElement Source="{Binding RAASSource}" x:Name="RAASPlayer" LoadedBehavior="Manual" UnloadedBehavior="Close" Stretch="Fill" Volume="0.4"
+        <MediaElement DataContext="{Binding RAASSource}" Source="{Binding PathToSource}" x:Name="RAASPlayer" LoadedBehavior="Manual" UnloadedBehavior="Close" Stretch="Fill" Volume="0.4"
          MediaFailed="PlayerLoadFailed" MouseDown="RAASPlayer_MouseDown" MediaOpened="RAASPlayer_MediaOpened" Loaded="RAASPlayer_Loaded"></MediaElement>
         <Grid VerticalAlignment="Bottom" Margin="5">
             <Grid.ColumnDefinitions>
@@ -21,6 +21,15 @@
             <Slider Grid.Column="1" Name="VolumeSlider" 
                     VerticalAlignment="Center" ValueChanged="VolumeSlider_ValueChanged" Value="0.3" Width="100" Minimum="0" Maximum="1"/>
         </Grid>
-        <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="5" />
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="5">
+            <Label Name="lblStatus" HorizontalContentAlignment="Center" Content="Not playing..."/>
+            <ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding RAASSource}" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ReadableName}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
     </StackPanel>
 </UserControl>
